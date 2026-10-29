@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/nova.gd" id="1_nova"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nova"]
+radius = 10.0
+height = 72.0
+
+[node name="Nova" type="CharacterBody2D" groups=["nova"]]
+script = ExtResource("1_nova")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_nova")

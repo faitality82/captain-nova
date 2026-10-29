@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/enemy_bullet.gd" id="1_ebscr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_col"]
+radius = 3.0
+
+[node name="EnemyBullet" type="Area2D"]
+collision_layer = 64
+collision_mask = 1
+script = ExtResource("1_ebscr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_col")

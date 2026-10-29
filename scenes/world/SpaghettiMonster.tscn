@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_escr"]
+[ext_resource type="PackedScene" path="res://scenes/world/EnemyBullet.tscn" id="3_ebpck"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 18.0
+
+[node name="SpaghettiMonster" type="CharacterBody2D"]
+collision_layer = 32
+collision_mask = 3
+script = ExtResource("1_escr")
+hp = 150
+move_speed = 80.0
+damage_on_contact = 15
+shoot_interval = 1.5
+bullet_damage = 15
+kill_reward = 200
+xp_reward = 60
+enemy_type = "spaghetti"
+bullet_scene = ExtResource("3_ebpck")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_body")
+
+[node name="DamageArea" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+shape = SubResource("CircleShape2D_body")

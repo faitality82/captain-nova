@@ -1,0 +1,24 @@
+# Godot-specific ignores
+.godot/
+*.import
+export_presets.cfg
+*.translation
+
+# Mono-specific ignores
+.mono/
+data_*/
+
+# Claude Code
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python
+__pycache__/
+*.pyc
+
+# Session logs
+cad_mcp.log

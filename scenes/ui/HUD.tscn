@@ -1,0 +1,70 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/hud.gd" id="1_hudscr"]
+
+[node name="HUD" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_hudscr")
+
+[node name="HPBar" type="ProgressBar" parent="."]
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 210.0
+offset_bottom = 30.0
+min_value = 0.0
+max_value = 100.0
+value = 100.0
+
+[node name="GoalLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_top = 30.0
+offset_right = 100.0
+offset_bottom = 50.0
+grow_horizontal = 2
+text = "Goal: 0 / 1000 pts"
+horizontal_alignment = 1
+
+[node name="PointsLabel" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -210.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 30.0
+grow_horizontal = 0
+text = "Points: 0"
+horizontal_alignment = 2
+
+[node name="CargoLabel" type="Label" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -40.0
+offset_right = 310.0
+offset_bottom = -20.0
+grow_vertical = 0
+text = "Cargo [0/10]"
+
+[node name="InteractHint" type="Label" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -50.0
+offset_right = 400.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+text = ""
+horizontal_alignment = 1
+horizontal_alignment = 1
+
+[node name="PlanetIndicators" type="Control" parent="."]

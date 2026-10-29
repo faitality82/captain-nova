@@ -1,0 +1,232 @@
+[gd_scene load_steps=18 format=3]
+
+[ext_resource type="Script" path="res://scripts/world.gd" id="1_wscr"]
+[ext_resource type="PackedScene" path="res://scenes/world/Ship.tscn" id="2_ship"]
+[ext_resource type="PackedScene" path="res://scenes/world/Planet.tscn" id="3_planet"]
+[ext_resource type="PackedScene" path="res://scenes/world/DebrisRing.tscn" id="4_debris"]
+[ext_resource type="PackedScene" path="res://scenes/world/AsteroidField.tscn" id="5_afield"]
+[ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="6_hud"]
+[ext_resource type="Texture2D" path="res://assets/sprites/mercury.png" id="9_mercury"]
+[ext_resource type="Texture2D" path="res://assets/sprites/venus.png" id="10_venus"]
+[ext_resource type="Texture2D" path="res://assets/sprites/earth.png" id="11_earth"]
+[ext_resource type="Texture2D" path="res://assets/sprites/mars.png" id="12_mars"]
+[ext_resource type="Texture2D" path="res://assets/sprites/jupiter.png" id="13_jupiter"]
+[ext_resource type="Texture2D" path="res://assets/sprites/saturn.png" id="14_saturn"]
+[ext_resource type="Texture2D" path="res://assets/sprites/uranus.png" id="15_uranus"]
+[ext_resource type="Texture2D" path="res://assets/sprites/neptune.png" id="16_neptune"]
+[ext_resource type="PackedScene" path="res://scenes/world/EnemySpawner.tscn" id="17_espawn"]
+[ext_resource type="Script" path="res://scripts/blood_splatter.gd" id="19_blood"]
+[ext_resource type="Script" path="res://scripts/sun.gd" id="20_sun"]
+[ext_resource type="Script" path="res://scripts/fire_death.gd" id="21_fire"]
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_wscr")
+
+[node name="Starfield" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Starfield"]
+motion_scale = Vector2(0.1, 0.1)
+
+[node name="Stars" type="ColorRect" parent="Starfield/ParallaxLayer"]
+offset_left = -8000.0
+offset_top = -5000.0
+offset_right = 14000.0
+offset_bottom = 5000.0
+color = Color(0.02, 0.02, 0.08, 1)
+
+[node name="Ship" parent="." instance=ExtResource("2_ship")]
+position = Vector2(0, 100)
+
+[node name="Sun" type="Node2D" parent="."]
+position = Vector2(-3000, 0)
+script = ExtResource("20_sun")
+
+[node name="NameLabel" type="Label" parent="Sun"]
+offset_left = -50.0
+offset_top = -60.0
+offset_right = 50.0
+offset_bottom = -40.0
+text = "Sun"
+horizontal_alignment = 1
+
+[node name="Mercury" parent="." instance=ExtResource("3_planet")]
+position = Vector2(-2200, -400)
+planet_name = "Mercury"
+price_table = {
+"ore": [25, 0],
+"fuel": [0, 0],
+"parts": [0, 125],
+"ice": [0, 200],
+"crystals": [40, 0],
+"plasma": [0, 0]
+}
+
+[node name="Sprite2D" parent="Mercury" index="0"]
+texture = ExtResource("9_mercury")
+
+[node name="Venus" parent="." instance=ExtResource("3_planet")]
+position = Vector2(-1200, 500)
+planet_name = "Venus"
+price_table = {
+"ore": [0, 100],
+"fuel": [40, 0],
+"parts": [0, 150],
+"ice": [0, 0],
+"crystals": [0, 0],
+"plasma": [30, 0]
+}
+
+[node name="Sprite2D" parent="Venus" index="0"]
+texture = ExtResource("10_venus")
+
+[node name="VenusDebris" parent="Venus" instance=ExtResource("4_debris")]
+ring_radius = 150.0
+debris_count = 12
+orbit_speed = 0.3
+
+[node name="Earth" parent="." instance=ExtResource("3_planet")]
+position = Vector2(0, 0)
+planet_name = "Earth"
+price_table = {
+"ore": [0, 75],
+"fuel": [0, 100],
+"parts": [50, 0],
+"ice": [0, 75],
+"crystals": [0, 50],
+"plasma": [0, 60]
+}
+
+[node name="Sprite2D" parent="Earth" index="0"]
+texture = ExtResource("11_earth")
+
+[node name="Mars" parent="." instance=ExtResource("3_planet")]
+position = Vector2(1500, -800)
+planet_name = "Mars"
+price_table = {
+"ore": [25, 0],
+"fuel": [50, 0],
+"parts": [0, 150],
+"ice": [0, 0],
+"crystals": [0, 125],
+"plasma": [20, 0]
+}
+
+[node name="Sprite2D" parent="Mars" index="0"]
+texture = ExtResource("12_mars")
+
+[node name="MercuryField" parent="." instance=ExtResource("5_afield")]
+position = Vector2(-2500, -100)
+field_size = Vector2(800, 600)
+max_asteroids = 12
+resource_type = "crystals"
+
+[node name="AsteroidBelt" parent="." instance=ExtResource("5_afield")]
+position = Vector2(2500, 200)
+field_size = Vector2(2000, 1200)
+max_asteroids = 30
+
+[node name="MarsField" parent="." instance=ExtResource("5_afield")]
+position = Vector2(1200, -500)
+field_size = Vector2(800, 600)
+max_asteroids = 10
+resource_type = "parts"
+
+[node name="JupiterField" parent="." instance=ExtResource("5_afield")]
+position = Vector2(4300, 500)
+field_size = Vector2(1000, 800)
+max_asteroids = 15
+resource_type = "parts"
+
+[node name="Jupiter" parent="." instance=ExtResource("3_planet")]
+position = Vector2(4000, 800)
+planet_name = "Jupiter"
+price_table = {
+"ore": [0, 175],
+"fuel": [15, 0],
+"parts": [0, 0],
+"ice": [0, 0],
+"crystals": [0, 150],
+"plasma": [0, 100]
+}
+
+[node name="Sprite2D" parent="Jupiter" index="0"]
+texture = ExtResource("13_jupiter")
+
+[node name="JupiterDebris" parent="Jupiter" instance=ExtResource("4_debris")]
+ring_radius = 250.0
+debris_count = 25
+orbit_speed = 0.4
+
+[node name="Saturn" parent="." instance=ExtResource("3_planet")]
+position = Vector2(5800, -500)
+planet_name = "Saturn"
+price_table = {
+"ore": [0, 0],
+"fuel": [25, 0],
+"parts": [0, 125],
+"ice": [0, 175],
+"crystals": [0, 0],
+"plasma": [0, 120]
+}
+
+[node name="Sprite2D" parent="Saturn" index="0"]
+texture = ExtResource("14_saturn")
+
+[node name="SaturnRing" parent="Saturn" instance=ExtResource("4_debris")]
+ring_radius = 220.0
+debris_count = 30
+orbit_speed = 0.25
+
+[node name="Uranus" parent="." instance=ExtResource("3_planet")]
+position = Vector2(7500, 600)
+planet_name = "Uranus"
+price_table = {
+"ore": [0, 0],
+"fuel": [0, 200],
+"parts": [0, 0],
+"ice": [15, 0],
+"crystals": [25, 0],
+"plasma": [15, 0]
+}
+
+[node name="Sprite2D" parent="Uranus" index="0"]
+texture = ExtResource("15_uranus")
+
+[node name="UranusField" parent="." instance=ExtResource("5_afield")]
+position = Vector2(7200, 300)
+field_size = Vector2(1000, 800)
+max_asteroids = 18
+resource_type = "ice"
+
+[node name="Neptune" parent="." instance=ExtResource("3_planet")]
+position = Vector2(9500, -200)
+planet_name = "Neptune"
+price_table = {
+"ore": [0, 200],
+"fuel": [0, 250],
+"parts": [0, 0],
+"ice": [15, 0],
+"crystals": [0, 225],
+"plasma": [0, 150]
+}
+
+[node name="Sprite2D" parent="Neptune" index="0"]
+texture = ExtResource("16_neptune")
+
+[node name="NeptuneField" parent="." instance=ExtResource("5_afield")]
+position = Vector2(9000, -400)
+field_size = Vector2(1500, 1000)
+max_asteroids = 30
+resource_type = "crystals"
+
+[node name="EnemySpawner" parent="." instance=ExtResource("17_espawn")]
+
+[node name="HUD" parent="." instance=ExtResource("6_hud")]
+
+[node name="BloodSplatter" type="CanvasLayer" parent="."]
+layer = 100
+script = ExtResource("19_blood")
+
+[node name="FireDeath" type="CanvasLayer" parent="."]
+layer = 100
+script = ExtResource("21_fire")
